@@ -2,14 +2,17 @@
 let phoneInp = document.querySelector("#phone-inp");
 let submitBtn = document.querySelector("button[type='submit']")
 
-const MTN = [0703, 0706, 0803, 0806, 0813, 0816]
-const Airtel = [0702, 0802, 0808, 0812, 0818]
-const Glo = [0705, 0707, 0805, 0807, 0815, 0817]
+const MTN = [0703, 0706, 0803, 0806, 0810, 0813, 0814, 0816, 0903, 0906, 0913]
+const AIRTEL = [0701, 0802, 0808, 0812, 0902, 0907, 0901, 0912]
+const GLO = [0705, 0805, 0807, 0811, 0815, 0905]
+const ETISALAT = [0809, 0817, 0818, 0908, 0909]
 
 // STUB: event listener
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
+    
+    let temp = splitNum(phoneInp.value)
+    
     if (phoneInp.value === "") {
         alert('No input submitted')
         return
@@ -21,13 +24,8 @@ submitBtn.addEventListener("click", (e) => {
         return
     }
 
-    let temp = splitNum(phoneInp.value)
+    detectNetwork(temp)
 
-    MTN.some((elem) => elem === temp) ? alert('MTN number')
-        : Airtel.some((elem) => elem === temp) ? alert('Airtel number')
-            : Glo.some((elem) => elem === temp) ? alert('Glo number')
-                : alert('Number not recognized')
-   
     phoneInp.value = ""
 
 })
@@ -38,4 +36,13 @@ const splitNum = (num) => {
 
     // STUB: convert slicedNum to number using unary operator
     return +slicedNum
+};
+
+// STUB: function that checks what network the phone number belongs to
+const detectNetwork = (phoneNum) => {
+    MTN.some((elem) => elem === phoneNum) ? alert('MTN number')
+    : AIRTEL.some((elem) => elem === phoneNum) ? alert('Airtel number')
+    : GLO.some((elem) => elem === phoneNum) ? alert('Glo number')
+    : ETISALAT.some((elem) => elem === phoneNum) ? alert('Etisalat number')
+    : alert('Number not recognized')
 }
